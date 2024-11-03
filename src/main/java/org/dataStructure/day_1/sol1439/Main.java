@@ -1,4 +1,4 @@
-package org.dataStructure.sol1439;
+package org.dataStructure.day_1.sol1439;
 
 import java.util.*;
 

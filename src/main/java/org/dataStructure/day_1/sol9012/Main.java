@@ -1,4 +1,4 @@
-package org.dataStructure.sol9012;
+package org.dataStructure.day_1.sol9012;
 
 
 import java.util.Scanner;

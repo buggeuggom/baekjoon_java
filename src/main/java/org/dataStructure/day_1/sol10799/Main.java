@@ -1,4 +1,4 @@
-package org.dataStructure.sol10799;
+package org.dataStructure.day_1.sol10799;
 
 import java.util.*;
 
