@@ -4,67 +4,50 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
     static int N;
-    static List<String> results;
+    static List<String> ans;
+    static String[] op = {"+", "-", " "};
+    public static void main(String[] args) throws Exception {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int testCases = Integer.parseInt(br.readLine());
+        InputStreamReader in = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(in);
+        int T = Integer.parseInt(br.readLine());
 
-        StringBuilder output = new StringBuilder();
-
-        for (int t = 0; t < testCases; t++) {
+        while (T-- > 0) {
             N = Integer.parseInt(br.readLine());
-            results = new ArrayList<>();
-            backtrack(1, "1");
-            for (String result : results) {
-                output.append(result).append("\n");
-            }
-            if (t < testCases - 1) {
-                output.append("\n");
-            }
-        }
+            ans = new ArrayList<>();
 
-        System.out.print(output);
+            dfs(1, "1");
+            Collections.sort(ans);
+            for(String s: ans){
+                System.out.println(s);
+            }
+            System.out.println();
+        }
     }
 
-    private static void backtrack(int num, String expression) {
+    private static void dfs(int num, String s) {
         if (num == N) {
-            if (evaluate(expression) == 0) {
-                results.add(expression);
-            }
+            String expression = s.replaceAll(" ", "");
+            if (cal(expression)) ans.add(s);
+
             return;
         }
 
-        backtrack(num + 1, expression + " " + (num + 1));
-        backtrack(num + 1, expression + "+" + (num + 1));
-        backtrack(num + 1, expression + "-" + (num + 1));
+        for(int i = 0;  i<3; i++){
+            dfs(num+1, s+op[i]+(num+1));
+        }
     }
 
-    private static int evaluate(String expression) {
-        expression = expression.replace(" ", "");
-
-        int sum = 0, currentNumber = 0;
-        char operator = '+';
-
-        for (int i = 0; i < expression.length(); i++) {
-            char ch = expression.charAt(i);
-
-            if (Character.isDigit(ch)) {
-                currentNumber = currentNumber * 10 + (ch - '0');
-            }
-
-            if (!Character.isDigit(ch) || i == expression.length() - 1) {
-                if (operator == '+') {
-                    sum += currentNumber;
-                } else if (operator == '-') {
-                    sum -= currentNumber;
-                }
-                operator = ch;
-                currentNumber = 0;
-            }
+    private static boolean cal(String expression) {
+        StringTokenizer st = new StringTokenizer(expression, "-|+", true);
+        int sum = Integer.parseInt(st.nextToken());
+        while (st.hasMoreElements()) {
+            String s = st.nextToken();
+            sum = (s.equals("+")) ? sum+Integer.parseInt(st.nextToken()) : sum - Integer.parseInt(st.nextToken());
         }
 
-        return sum;
+        return (sum==0)? true : false;
     }
 }
