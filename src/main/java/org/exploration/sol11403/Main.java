@@ -1,4 +1,4 @@
-package org.graph.sol11403;
+package org.exploration.sol11403;
 
 import java.util.ArrayList;
 import java.util.List;
