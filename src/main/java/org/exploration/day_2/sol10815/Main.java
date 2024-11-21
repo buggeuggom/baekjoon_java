@@ -1,4 +1,4 @@
-package org.exploration.day10815;
+package org.exploration.day_2.sol10815;
 
 import java.io.*;
 import java.util.*;
